@@ -22,6 +22,12 @@ public class Board implements IPondAction {
         this.crosshairs = new ArrayList<Boolean>();
     }
 
+    public ArrayList<Boolean> getCrosshairs() { return this.crosshairs; }
+    
+    public ArrayList<PondCard> getPond() { return this.pond; }
+
+    public ArrayList<PondCard> getPondPile() { return this.pondPile; }
+
     private void createBoardDeck(Player[] players) {
         this.pond = new ArrayList<>();
         this.pondPile = new ArrayList<>();
@@ -62,12 +68,6 @@ public class Board implements IPondAction {
             }
         }
     }
-
-    public ArrayList<Boolean> getCrosshairs() { return this.crosshairs; }
-    
-    public ArrayList<PondCard> getPond() { return this.pond; }
-
-    public ArrayList<PondCard> getPondPile() { return this.pondPile; }
 
     public void dealCards(ArrayList<PondCard> pond, ArrayList<PondCard> pondPile) {
         for(int i = 0; i < Board.POND_CARDS_NUMBER; i++) {

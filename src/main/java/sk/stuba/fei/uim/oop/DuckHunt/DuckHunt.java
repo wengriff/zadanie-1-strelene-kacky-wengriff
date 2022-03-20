@@ -37,9 +37,13 @@ public class DuckHunt {
         this.playGame();
     }
 
+    private void printRound() { System.out.println("\n<------- ROUND: " + (round + 1) +" ------->\n"); }
+
     private void setNumberOfPlayers(int numberOfPlayers) { this.numberOfPlayers = numberOfPlayers; }
 
     private int getNumberOfPlayers() { return this.numberOfPlayers; }
+
+    private String setPlayerName(int i) { return ZKlavesnice.readString("Set Player " + (i + 1) + "'s name: "); }
 
     private int getNumberOfAlivePlayers() {
         int numberOfAlivePlayers = 0; 
@@ -49,11 +53,6 @@ public class DuckHunt {
             }
         }
         return numberOfAlivePlayers; // 1
-    }
-
-    private String setPlayerName(int i) {
-        String playerName = ZKlavesnice.readString("Set Player " + (i + 1) + "'s name: ");
-        return playerName;
     }
 
     private void playGame() {
@@ -97,10 +96,6 @@ public class DuckHunt {
         if(this.activePlayerCounter >= this.players.length) {
             this.activePlayerCounter = 0;
         }
-    }
-
-    private void printRound() {
-        System.out.println("\n<------- ROUND: " + (round + 1) +" ------->\n");
     }
 
     private void printPlayerLives() {

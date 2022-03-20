@@ -12,12 +12,10 @@ public class ScatterCard extends ActionCard {
         super("Scatter");
     }
 
+    private void scatterPond(ArrayList<PondCard> pond) { Collections.shuffle(pond); }
+
     @Override
     public void envoke(Board board) {
         this.scatterPond(board.getPond());
-    }
-
-    private void scatterPond(ArrayList<PondCard> pond) {
-        Collections.shuffle(pond);
     }
 }

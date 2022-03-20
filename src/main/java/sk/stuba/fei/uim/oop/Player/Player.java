@@ -19,15 +19,21 @@ public class Player {
         this.ducks = new ArrayList<DuckCard>();
     }
 
-    public boolean isAlive() {
-        return this.ducks.size() > 0 ? true : false;
-    }
+    public boolean isAlive() { return this.ducks.size() > 0 ? true : false; }
 
     public String getName() { return this.name; }
 
     public ArrayList<ActionCard> getHand () { return this.hand; }
 
+    public ArrayList<DuckCard> getDucks() { return this.ducks; }
+
+    public int getNumberOfDucks() { return this.ducks.size(); }
+
     public void setHand(ArrayList<ActionCard> hand) { this.hand = hand; }
+
+    public void decrementDucks() { this.ducks.remove(0); }
+
+    private void addCard(ActionCard card) { this.hand.add(card); }
 
     public void playCard(Board board, ArrayList<ActionCard> pile) {
         for(;;) {
@@ -76,8 +82,6 @@ public class Player {
         }
     }
 
-    private void addCard(ActionCard card) { this.hand.add(card); }
-
     public void draw(ArrayList<ActionCard> deck) {
         while(this.getHand().size() < 3) {
             this.addCard(deck.remove(0));
@@ -100,13 +104,5 @@ public class Player {
     private void discardCard(ActionCard card, ArrayList<ActionCard> pile) {
         pile.add(card);
         this.hand.remove(card);
-    }
-
-    public ArrayList<DuckCard> getDucks() { return this.ducks; }
-
-    public int getNumberOfDucks() { return this.ducks.size(); }
-
-    public void decrementDucks() {
-        this.ducks.remove(0);
     }
 }
