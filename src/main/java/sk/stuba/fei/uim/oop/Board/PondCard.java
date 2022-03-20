@@ -7,7 +7,5 @@ public abstract class PondCard {
         this.name = name;
     }
 
-    public abstract void envoke();
-
     public String getName() { return this.name; }
 }

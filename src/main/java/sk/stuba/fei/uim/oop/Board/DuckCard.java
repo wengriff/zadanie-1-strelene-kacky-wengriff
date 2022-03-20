@@ -12,11 +12,6 @@ public class DuckCard extends PondCard {
         this.owner = owner;
     }
 
-    @Override
-    public void envoke() {
-        
-    }
-
     public boolean isAlive() { return this.alive; }
 
     public void setAlive(boolean alive) { this.alive = alive; }
