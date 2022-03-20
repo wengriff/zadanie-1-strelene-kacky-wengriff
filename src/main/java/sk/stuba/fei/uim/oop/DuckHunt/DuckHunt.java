@@ -6,6 +6,10 @@ import sk.stuba.fei.uim.oop.Player.Player;
 import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
 
 public class DuckHunt {
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_RESET = "\u001B[0m";
 
     private final Player[] players;
     private int numberOfPlayers;
@@ -20,7 +24,7 @@ public class DuckHunt {
         System.out.println("\n<---- DUCK HUNT GAME! ---->\n");
         int num = ZKlavesnice.readInt("\nSet the number of players: ");
         while(num < 2 || num > 6) {
-            System.out.println("\nInvalid number of players! Try Again!");
+            System.out.println(ANSI_RED + "\nInvalid number of players! Try Again!" + ANSI_RESET);
             num = ZKlavesnice.readInt("\nSet the number of players: ");
         }
         this.setNumberOfPlayers(num);
@@ -38,13 +42,13 @@ public class DuckHunt {
     private int getNumberOfPlayers() { return this.numberOfPlayers; }
 
     private int getNumberOfAlivePlayers() {
-        int numberOfAlivePlayers = 0;
+        int numberOfAlivePlayers = 0; 
         for(Player player : this.players) {
             if(player.isAlive()) {
                 numberOfAlivePlayers++;
             }
         }
-        return numberOfAlivePlayers;
+        return numberOfAlivePlayers; // 1
     }
 
     private String setPlayerName(int i) {
@@ -54,7 +58,7 @@ public class DuckHunt {
 
     private void playGame() {
         System.out.println("\n<---- HUNT BEGAN! ---->\n");
-        while(this.getNumberOfAlivePlayers() > 1) {
+        while(this.getNumberOfAlivePlayers() > 1) { // 1==1
             Player activePlayer = this.players[this.activePlayerCounter];
             this.printRound();
             this.printPlayerLives();
@@ -71,7 +75,10 @@ public class DuckHunt {
             this.nextPlayer();
         }
         System.out.println("\n<---- HUNT IS OVER! ---->\n");
-        System.out.println("<---- THE BEST HUNTER IS: ---->" + this.getWinner().getName() + "!!!\n");
+        System.out.println("<---- THE BEST HUNTER IS: " + ANSI_CYAN + this.getWinner().getName() + ANSI_RESET + " ---->\n");
+        for(Player player : players) {
+            System.out.println(player.getName() + ": " + player.getNumberOfDucks());
+        }
     }
 
     private Player getWinner() {
@@ -98,7 +105,7 @@ public class DuckHunt {
 
     private void printPlayerLives() {
         for(Player player : this.players) {
-            System.out.println(player.getName() + " has " + player.getNumberOfDucks() + " ducks.");
+            System.out.println(ANSI_GREEN + player.getName() + " has " + player.getNumberOfDucks() + " ducks." + ANSI_RESET);
         }
         System.out.println("\n");
     }

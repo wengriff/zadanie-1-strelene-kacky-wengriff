@@ -1,6 +1,6 @@
 BUGS: 
 
-- Make turboduck work properly (done?)
+- Aim can select other than 1-6
 
 FEAT: 
 

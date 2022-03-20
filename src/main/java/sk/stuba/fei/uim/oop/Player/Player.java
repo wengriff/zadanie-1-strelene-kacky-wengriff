@@ -20,12 +20,7 @@ public class Player {
     }
 
     public boolean isAlive() {
-        for(DuckCard duck : this.ducks) {
-            if(duck.isAlive()) {
-                return true;
-            }
-        }
-        return false;
+        return this.ducks.size() > 0 ? true : false;
     }
 
     public String getName() { return this.name; }
@@ -36,8 +31,8 @@ public class Player {
 
     public void playCard(Board board, ArrayList<ActionCard> pile) {
         for(;;) {
-            System.out.println("\n" + this.getName() + " is playing a card!");
-            System.out.println("\nYour Cards: \n");
+            System.out.println("\n---> " + this.getName() + "'s turn!");
+            System.out.println("\nYour Cards: ");
             for(int i = 0; i < this.hand.size(); i++) {
                 System.out.println((i + 1) + ". " + this.getHand().get(i).getName());
             }
@@ -46,7 +41,7 @@ public class Player {
             int cardNumber = 0;
 
             if(!this.canPlay(board, hand)) {
-                System.out.println("\nYou don't have any cards to play! You have to discard one card!\n");
+                System.out.println("You don't have any cards to play! You have to discard one card!");
                 cardNumber = ZKlavesnice.readInt("Choose a card (1-3) to discard: ");
                 for(;;) {
                     if(cardNumber > this.hand.size() || cardNumber < 1) {
