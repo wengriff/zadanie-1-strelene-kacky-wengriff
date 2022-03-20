@@ -13,15 +13,12 @@ public class AimCard extends ActionCard implements ICheckInput {
 
     @Override
     public void envoke(Board board) {
-        for(;;) {
-            System.out.println("Select an Aim: ");
-    
-            this.cardNumber = ZKlavesnice.readInt("");
+        System.out.println("Select an Aim: ");
 
-            if(this.checkInput(board)) {
-                board.getCrosshairs().set(cardNumber - 1, true);
-                break;
-            }
+        this.cardNumber = ZKlavesnice.readInt("");
+
+        if(this.checkInput(board)) {
+            board.getCrosshairs().set(cardNumber - 1, true);
         }
     }
 

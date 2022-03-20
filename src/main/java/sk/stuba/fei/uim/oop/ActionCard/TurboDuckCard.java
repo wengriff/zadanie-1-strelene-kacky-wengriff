@@ -18,16 +18,13 @@ public class TurboDuckCard extends ActionCard implements IPondAction, ICheckInpu
 
     @Override
     public void envoke(Board board) {       
-        for(;;) {
-            System.out.println("\nSelect a Duck: ");
-    
-            this.cardNumber = ZKlavesnice.readInt("");
+        System.out.println("\nSelect a Duck: ");
 
-            if(this.checkInput(board)) {
-                this.moveDucks(board.getPond(), board.getPondPile());
-                System.out.println("\nYou moved the Duck to the end!\n");
-                break;
-            }
+        this.cardNumber = ZKlavesnice.readInt("");
+
+        if(this.checkInput(board)) {
+            this.moveDucks(board.getPond(), board.getPondPile());
+            System.out.println("\nYou moved the Duck to the end!\n");
         }
     }
 

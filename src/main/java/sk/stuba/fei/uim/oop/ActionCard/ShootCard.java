@@ -15,20 +15,18 @@ public class ShootCard extends ActionCard implements ICheckInput {
 
     @Override
     public void envoke(Board board) {
-        for(;;) {
-            System.out.println("\nSelect a Target: ");
+        System.out.println("\nSelect a Target: ");
+    
+        this.cardNumber = ZKlavesnice.readInt("");
         
-            this.cardNumber = ZKlavesnice.readInt("");
-            
-            if(this.checkInput(board)) {
-                PondCard selected = board.getPond().get(this.cardNumber - 1);
-                if(selected instanceof DuckCard) {
-                    ((DuckCard)selected).setAlive(false);
-                }
+        if(this.checkInput(board)) {
+            PondCard selected = board.getPond().get(this.cardNumber - 1);
+            if(selected instanceof DuckCard) {
+                ((DuckCard)selected).setAlive(false);
             }
-            board.getCrosshairs().set(this.cardNumber - 1, false);
-            break;
         }
+        board.getCrosshairs().set(this.cardNumber - 1, false);
+            
     }
 
     @Override

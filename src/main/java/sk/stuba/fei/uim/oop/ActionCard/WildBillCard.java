@@ -15,21 +15,18 @@ public class WildBillCard extends ActionCard implements ICheckInput {
 
     @Override
     public void envoke(Board board) {
-        for(;;) {
-            System.out.println("\nSelect a Target (1-6): ");
-    
-            this.cardNumber = ZKlavesnice.readInt("");
+        System.out.println("\nSelect a Target (1-6): ");
 
-            if(this.checkInput(board)){
-                PondCard selected = board.getPond().get(cardNumber - 1);
-                if(selected instanceof DuckCard) {
-                    ((DuckCard)selected).setAlive(false);
-                }  else {
-                    System.out.println("\nInvalid card number! Try Again!");
-                }
-                board.getCrosshairs().set(cardNumber - 1, false);
-                break;
+        this.cardNumber = ZKlavesnice.readInt("");
+
+        if(this.checkInput(board)){
+            PondCard selected = board.getPond().get(cardNumber - 1);
+            if(selected instanceof DuckCard) {
+                ((DuckCard)selected).setAlive(false);
+            }  else {
+                System.out.println("\nInvalid card number! Try Again!");
             }
+            board.getCrosshairs().set(cardNumber - 1, false);
         }
     }
 
