@@ -44,7 +44,7 @@ public class Player implements ISanitizeInput {
         this.printHand();
         System.out.println("\n");
 
-        if(!this.canPlay(board, hand)){
+        if(!this.canPlayCard(board, hand)){
             System.out.println("You don't have any cards to play! You have to discard one card!");
             this.discardCardNumber = ZKlavesnice.readInt("Choose a card (1-3) to discard: ");
             this.sanitizeDiscardInput(board);
@@ -68,7 +68,7 @@ public class Player implements ISanitizeInput {
         }
     }
 
-    private boolean canPlay(Board board,ArrayList<ActionCard> hand) {
+    private boolean canPlayCard(Board board,ArrayList<ActionCard> hand) {
         if(board.getCrosshairs().contains(true)) {
             return true;
         } else {
@@ -93,20 +93,20 @@ public class Player implements ISanitizeInput {
         }
     }
 
-    @Override
-    public void sanitizeInput(Board board) {
-        if(this.canPlay(board, this.hand) && !(board.getCrosshairs().contains(true))) {
-            while(this.cardNumber < 1 || this.cardNumber > this.hand.size() || this.getHand().get(this.cardNumber - 1) instanceof ShootCard) {
-                System.out.println("\nCard is not playable!\n");
-                this.cardNumber = ZKlavesnice.readInt("Choose another card: ");
-            }
-        }
-    }
-
     private void sanitizeDiscardInput(Board board) {
         while (this.discardCardNumber < 1 || this.discardCardNumber > this.hand.size()) {
             System.out.println("Invalid number!");
             this.discardCardNumber = ZKlavesnice.readInt("Choose a card (1-3) to discard: ");
+        }
+    }
+
+    @Override
+    public void sanitizeInput(Board board) {
+        if(this.canPlayCard(board, this.hand) && !(board.getCrosshairs().contains(true))) {
+            while(this.cardNumber < 1 || this.cardNumber > this.hand.size() || this.getHand().get(this.cardNumber - 1) instanceof ShootCard) {
+                System.out.println("\nCard is not playable!\n");
+                this.cardNumber = ZKlavesnice.readInt("Choose another card: ");
+            }
         }
     }
 }
