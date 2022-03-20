@@ -1,9 +1,11 @@
 package sk.stuba.fei.uim.oop.ActionCard;
 
 import sk.stuba.fei.uim.oop.Board.Board;
+import sk.stuba.fei.uim.oop.Interface.ICheckInput;
 import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
 
-public class AimCard extends ActionCard {
+public class AimCard extends ActionCard implements ICheckInput {
+    private int cardNumber;
 
     public AimCard() {
         super("Aim");
@@ -14,49 +16,21 @@ public class AimCard extends ActionCard {
         for(;;) {
             System.out.println("Select an Aim: ");
     
-            int cardNumber = ZKlavesnice.readInt("");
+            this.cardNumber = ZKlavesnice.readInt("");
 
-            if(cardNumber > 0 && cardNumber <= board.getPond().size()) {
-                while(cardNumber < 1 && cardNumber > board.getPond().size()) {
-                    System.out.println("\nInvalid card number! Try Again!");
-                    cardNumber = ZKlavesnice.readInt("");
-                }
-
-                for(;;) {
-                    if(cardNumber > 0 && cardNumber <= board.getPond().size()) {
-                        if(board.getCrosshairs().get(cardNumber - 1)) {
-                            System.out.println("\nPosition " + cardNumber + ". already targeted, select another target: ");
-                            cardNumber = ZKlavesnice.readInt("");
-                        } else {
-                            break;
-                        }
-                    } else {
-                        System.out.println("\nInvalid card number! Try Again!");
-                        cardNumber = ZKlavesnice.readInt("");
-                    }
-                }
+            if(this.checkInput(board)) {
                 board.getCrosshairs().set(cardNumber - 1, true);
                 break;
-            } else {
-                System.out.println("Invalid Aim number! Try Again!");
             }
-
-            // if(cardNumber > 0 && cardNumber <= board.getCrosshairs().size()) {
-            //     board.getCrosshairs().set(cardNumber - 1, true);
-            // } else {
-            //     System.out.println("\nInvalid card number! Try Again!");
-            // }
-            // while(board.getCrosshairs().get(cardNumber - 1)) {
-            //     System.out.println("\nPosition " + cardNumber + ". already targeted, select another target: ");
-            //     cardNumber = ZKlavesnice.readInt("");
-            // }
-            
-            // if(cardNumber > 0 && cardNumber <= board.getPond().size() && !board.getCrosshairs().get(cardNumber - 1)) {
-            //     board.getCrosshairs().set(cardNumber - 1, true);
-            //     return;
-            // } else {
-            //     System.out.println("\nInvalid card number! Try Again!");
-            // }
         }
+    }
+
+    @Override
+    public boolean checkInput(Board board) {
+        while(this.cardNumber < 1 || this.cardNumber > board.getPond().size() || board.getCrosshairs().get(this.cardNumber - 1)) {
+            System.out.println("\nInvalid card number! Try Again!");
+            this.cardNumber = ZKlavesnice.readInt("");
+        }
+        return true;
     }
 }

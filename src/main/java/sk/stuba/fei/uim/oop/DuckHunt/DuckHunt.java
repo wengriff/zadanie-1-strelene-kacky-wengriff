@@ -52,12 +52,12 @@ public class DuckHunt {
                 numberOfAlivePlayers++;
             }
         }
-        return numberOfAlivePlayers; // 1
+        return numberOfAlivePlayers;
     }
 
     private void playGame() {
         System.out.println("\n<---- HUNT BEGAN! ---->\n");
-        while(this.getNumberOfAlivePlayers() > 1) { // 1==1
+        while(this.getNumberOfAlivePlayers() > 1) {
             Player activePlayer = this.players[this.activePlayerCounter];
             this.printRound();
             this.printPlayerLives();
