@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import sk.stuba.fei.uim.oop.Board.Board;
 import sk.stuba.fei.uim.oop.Board.DuckCard;
 import sk.stuba.fei.uim.oop.Board.PondCard;
-import sk.stuba.fei.uim.oop.Interface.ICheckInput;
 import sk.stuba.fei.uim.oop.Interface.IPondAction;
+import sk.stuba.fei.uim.oop.Interface.ISanitizeInput;
 import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
 
-public class TurboDuckCard extends ActionCard implements IPondAction, ICheckInput {
+public class TurboDuckCard extends ActionCard implements IPondAction, ISanitizeInput{
     private int cardNumber;
 
     public TurboDuckCard() {
@@ -21,11 +21,11 @@ public class TurboDuckCard extends ActionCard implements IPondAction, ICheckInpu
         System.out.println("\nSelect a Duck: ");
 
         this.cardNumber = ZKlavesnice.readInt("");
+        this.sanitizeInput(board);
 
-        if(this.checkInput(board)) {
-            this.moveDucks(board.getPond(), board.getPondPile());
-            System.out.println("\nYou moved the Duck to the end!\n");
-        }
+        this.moveDucks(board.getPond(), board.getPondPile());
+        System.out.println("\nYou moved the Duck to the end!\n");
+
     }
 
     @Override
@@ -35,11 +35,10 @@ public class TurboDuckCard extends ActionCard implements IPondAction, ICheckInpu
     }
 
     @Override
-    public boolean checkInput(Board board) {
+    public void sanitizeInput(Board board) {
         while(this.cardNumber < 1 || this.cardNumber > board.getPond().size() || !(board.getPond().get(this.cardNumber - 1) instanceof DuckCard)) {
             System.out.println("\nInvalid card number! Try Again!");
             this.cardNumber = ZKlavesnice.readInt("");
         }
-        return true;
     }
 }

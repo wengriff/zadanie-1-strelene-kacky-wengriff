@@ -33,7 +33,7 @@ public class Board implements IPondAction {
         this.pondPile = new ArrayList<>();
         for(int i = 0; i < players.length; i++) {
             for(int j = 0; j < DUCKS_CARDS_PER_PLAYER; j++){
-                DuckCard duck = new DuckCard("Duck", true, players[i]);
+                DuckCard duck = new DuckCard("Duck", players[i]);
                 players[i].getDucks().add(duck);
                 this.pondPile.add(duck);
             }
@@ -62,15 +62,15 @@ public class Board implements IPondAction {
     public void printPond() {
         for(int i = 0; i < POND_CARDS_NUMBER; i++) {
             if(this.pond.get(i) instanceof DuckCard) {
-                System.out.println((i == 0 ? "↑ " : "| ") + (i + 1) + (crosshairs.get(i) ? ". Targeted --> " : ". Not Targeted --> ") + this.pond.get(i).getName() + " (" + ((DuckCard)this.pond.get(i)).getOwner().getName() + ")");
+                System.out.println((i == 0 ? "↑ " : "| ") + (i + 1) + (crosshairs.get(i) ? ". Targeted" : ". Not Targeted") + " --> " + this.pond.get(i).getName() + " (" + ((DuckCard)this.pond.get(i)).getOwner().getName() + ")");
             } else {
-                System.out.println((i == 0 ? "↑ " : "| ") + (i + 1) + (crosshairs.get(i) ? ". Targeted --> " : ". Not Targeted --> ") + this.pond.get(i).getName());
+                System.out.println((i == 0 ? "↑ " : "| ") + (i + 1) + (crosshairs.get(i) ? ". Targeted" : ". Not Targeted") + " --> " + this.pond.get(i).getName());
             }
         }
     }
 
     public void dealCards(ArrayList<PondCard> pond, ArrayList<PondCard> pondPile) {
-        for(int i = 0; i < Board.POND_CARDS_NUMBER; i++) {
+        for(int i = 0; i < POND_CARDS_NUMBER; i++) {
             PondCard removed = pondPile.remove(0);
             pond.add(removed);
         }

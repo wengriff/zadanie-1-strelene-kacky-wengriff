@@ -6,10 +6,10 @@ public class DuckCard extends PondCard {
     private boolean alive;
     private Player owner;
 
-    public DuckCard(String name, boolean alive, Player owner) {
+    public DuckCard(String name, Player owner) {
         super(name);
-        this.alive = alive;
         this.owner = owner;
+        this.alive = true;
     }
 
     public boolean isAlive() { return this.alive; }
