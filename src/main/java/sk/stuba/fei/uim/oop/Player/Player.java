@@ -45,20 +45,9 @@ public class Player implements ISanitizeInput {
         System.out.println("\n");
 
         if(!this.canPlayCard(board, hand)){
-            System.out.println("You don't have any cards to play! You have to discard one card!");
-            this.discardCardNumber = ZKlavesnice.readInt("Choose a card (1-3) to discard: ");
-            this.sanitizeDiscardInput(board);
-            ActionCard toDiscard = this.hand.get(this.discardCardNumber - 1);
-            this.discardCard(toDiscard, pile);
-
+            this.discard(pile);
         } else {
-            this.cardNumber = ZKlavesnice.readInt("Choose a card: ");
-            this.sanitizeInput(board);
-    
-            ActionCard selected = this.hand.get(cardNumber - 1);
-            selected.envoke(board);
-            board.checkForDeadDucks(board.getPond());
-            this.discardCard(selected, pile);
+            this.play(board, pile);
         }
     }
 
@@ -86,6 +75,23 @@ public class Player implements ISanitizeInput {
         this.hand.remove(card);
     }
 
+    private void discard(ArrayList<ActionCard> pile) {
+        System.out.println("You don't have any cards to play! You have to discard one card!");
+        this.discardCardNumber = ZKlavesnice.readInt("Choose a card (1-3) to discard: ");
+        this.sanitizeDiscardInput();
+        ActionCard toDiscard = this.hand.get(this.discardCardNumber - 1);
+        this.discardCard(toDiscard, pile);
+    }
+
+    private void play(Board board, ArrayList<ActionCard> pile) {
+        this.cardNumber = ZKlavesnice.readInt("Choose a card: ");
+        this.sanitizeInput(board);
+        ActionCard selected = this.hand.get(cardNumber - 1);
+        selected.envoke(board);
+        board.checkForDeadDucks(board.getPond());
+        this.discardCard(selected, pile);
+    }
+
     private void printHand() {
         System.out.println("\nYour Cards: ");
         for(int i = 0; i < this.hand.size(); i++) {
@@ -93,7 +99,7 @@ public class Player implements ISanitizeInput {
         }
     }
 
-    private void sanitizeDiscardInput(Board board) {
+    private void sanitizeDiscardInput() {
         while (this.discardCardNumber < 1 || this.discardCardNumber > this.hand.size()) {
             System.out.println("Invalid number!");
             this.discardCardNumber = ZKlavesnice.readInt("Choose a card (1-3) to discard: ");
