@@ -59,9 +59,7 @@ public class DuckHunt {
         System.out.println("\n<---- HUNT BEGAN! ---->\n");
         while(this.getNumberOfAlivePlayers() > 1) {
             Player activePlayer = this.players[this.activePlayerCounter];
-            this.printRound();
-            this.printPlayerLives();
-            board.printPond();
+            this.printGame();
             if(!activePlayer.isAlive()) {
                 this.nextPlayer();
                 continue;
@@ -73,11 +71,7 @@ public class DuckHunt {
             activePlayer.playCard(this.board, this.deck.getPile());
             this.nextPlayer();
         }
-        System.out.println("\n<---- HUNT IS OVER! ---->\n");
-        System.out.println("<---- THE BEST HUNTER IS: " + ANSI_CYAN + this.getWinner().getName() + ANSI_RESET + " ---->\n");
-        for(Player player : players) {
-            System.out.println(player.getName() + ": " + player.getNumberOfDucks());
-        }
+        this.printEndGame();
     }
 
     private Player getWinner() {
@@ -103,5 +97,16 @@ public class DuckHunt {
             System.out.println(ANSI_GREEN + player.getName() + " has " + player.getNumberOfDucks() + " ducks." + ANSI_RESET);
         }
         System.out.println("\n");
+    }
+
+    private void printGame() {
+        this.printRound();
+        this.printPlayerLives();
+        board.printPond();
+    }
+
+    private void printEndGame() {
+        System.out.println("\n<---- HUNT IS OVER! ---->\n");
+        System.out.println("<---- THE BEST HUNTER IS: " + ANSI_CYAN + this.getWinner().getName() + ANSI_RESET + " ---->\n");
     }
 }
