@@ -45,7 +45,7 @@ public class Player implements ISanitizeInput {
         this.printHand();
         System.out.println("\n");
 
-        if(!this.canPlayCard(board, hand)){
+        if(!this.canPlayCard(board.getCrosshairs(), hand)){
             this.discard(pile);
         } else {
             this.play(board, pile);
@@ -58,30 +58,21 @@ public class Player implements ISanitizeInput {
         }
     }
 
-    private boolean canPlayCard(Board board,ArrayList<ActionCard> hand) {
+    private boolean canPlayCard(ArrayList<Boolean> crosshairs,ArrayList<ActionCard> hand) {
+        return this.canPlayCardCheck(crosshairs, "Shoot") && this.canPlayCardCheck(crosshairs, "Aim");
+    }
+
+    private boolean canPlayCardCheck(ArrayList<Boolean> crosshairs, String name) {
         boolean ok = true;
-        if(!(board.getCrosshairs().contains(true))) {
-            for(ActionCard card : hand) {
-                if(card instanceof ShootCard) {
+        if(!(crosshairs.contains(name == "Shoot" ? true : false))) {
+            for(ActionCard card : this.hand) {
+                if(card.getName().equals(name)) {
                     ok = false;
                 } else {
-                    ok = true;
-                    break;
+                    return true;
                 }
             }
         }
-
-        if(!(board.getCrosshairs().contains(false))) {
-            for(ActionCard card : hand) {
-                if(card instanceof AimCard) {
-                    ok = false;
-                } else {
-                    ok = true;
-                    break;
-                }
-            }
-        }
-
         return ok;
     }
 
@@ -123,7 +114,7 @@ public class Player implements ISanitizeInput {
 
     @Override
     public void sanitizeInput(Board board) {
-        if(this.canPlayCard(board, this.hand) && !(board.getCrosshairs().contains(true))) {
+        if(this.canPlayCard(board.getCrosshairs(), this.hand) && !(board.getCrosshairs().contains(true))) {
             while(this.cardNumber < 1 || this.cardNumber > this.hand.size() || this.getHand().get(this.cardNumber - 1) instanceof ShootCard) {
                 System.out.println("\nCard is not playable!\n");
                 this.cardNumber = ZKlavesnice.readInt("Choose another card: ");
