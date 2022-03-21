@@ -3,6 +3,7 @@ package sk.stuba.fei.uim.oop.Player;
 import java.util.ArrayList;
 
 import sk.stuba.fei.uim.oop.ActionCard.ActionCard;
+import sk.stuba.fei.uim.oop.ActionCard.AimCard;
 import sk.stuba.fei.uim.oop.ActionCard.ShootCard;
 import sk.stuba.fei.uim.oop.Board.Board;
 import sk.stuba.fei.uim.oop.Board.DuckCard;
@@ -58,16 +59,30 @@ public class Player implements ISanitizeInput {
     }
 
     private boolean canPlayCard(Board board,ArrayList<ActionCard> hand) {
-        if(board.getCrosshairs().contains(true)) {
-            return true;
-        } else {
+        boolean ok = true;
+        if(!(board.getCrosshairs().contains(true))) {
             for(ActionCard card : hand) {
-                if(!(card instanceof ShootCard)) {
-                    return true;
+                if(card instanceof ShootCard) {
+                    ok = false;
+                } else {
+                    ok = true;
+                    break;
                 }
             }
-            return false;
         }
+
+        if(!(board.getCrosshairs().contains(false))) {
+            for(ActionCard card : hand) {
+                if(card instanceof AimCard) {
+                    ok = false;
+                } else {
+                    ok = true;
+                    break;
+                }
+            }
+        }
+
+        return ok;
     }
 
     private void discardCard(ActionCard card, ArrayList<ActionCard> pile) {
