@@ -1,6 +1,6 @@
 package sk.stuba.fei.uim.oop.ActionCard;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import sk.stuba.fei.uim.oop.Board.Board;
 import sk.stuba.fei.uim.oop.Board.DuckCard;
@@ -29,7 +29,7 @@ public class TurboDuckCard extends ActionCard implements IPondAction, ISanitizeI
     }
 
     @Override
-    public void moveDucks(ArrayList<PondCard> pond, ArrayList<PondCard> pondPile) {
+    public void moveDucks(List<PondCard> pond, List<PondCard> pondPile) {
         PondCard removed = pond.remove(this.cardNumber - 1);
         pond.add(0,removed);
     }

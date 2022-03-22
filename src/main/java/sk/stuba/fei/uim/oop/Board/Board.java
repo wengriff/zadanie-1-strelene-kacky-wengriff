@@ -1,5 +1,6 @@
 package sk.stuba.fei.uim.oop.Board;
 
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -12,9 +13,9 @@ public class Board implements IPondAction {
     public static final int DUCKS_CARDS_PER_PLAYER = 5;
     public static final int WATER_CARDS_NUMBER = 5;
 
-    private ArrayList<PondCard> pond;
-    private ArrayList<PondCard> pondPile;
-    private ArrayList<Boolean> crosshairs;
+    private List<PondCard> pond;
+    private List<PondCard> pondPile;
+    private List<Boolean> crosshairs;
 
     public Board() {
         this.pond = new ArrayList<PondCard>();
@@ -22,11 +23,11 @@ public class Board implements IPondAction {
         this.crosshairs = new ArrayList<Boolean>();
     }
 
-    public ArrayList<Boolean> getCrosshairs() { return this.crosshairs; }
+    public List<Boolean> getCrosshairs() { return this.crosshairs; }
     
-    public ArrayList<PondCard> getPond() { return this.pond; }
+    public List<PondCard> getPond() { return this.pond; }
 
-    public ArrayList<PondCard> getPondPile() { return this.pondPile; }
+    public List<PondCard> getPondPile() { return this.pondPile; }
 
     private void createBoardDeck(Player[] players) {
         this.pond = new ArrayList<>();
@@ -69,14 +70,14 @@ public class Board implements IPondAction {
         }
     }
 
-    public void dealCards(ArrayList<PondCard> pond, ArrayList<PondCard> pondPile) {
+    public void dealCards(List<PondCard> pond, List<PondCard> pondPile) {
         for(int i = 0; i < POND_CARDS_NUMBER; i++) {
             PondCard removed = pondPile.remove(0);
             pond.add(removed);
         }
     }
 
-    public void checkForDeadDucks(ArrayList<PondCard> pond) {
+    public void checkForDeadDucks(List<PondCard> pond) {
         for(int i = 0; i < pond.size(); i++) {
             PondCard card = this.getPond().get(i);
             if(card instanceof DuckCard) {
@@ -90,7 +91,7 @@ public class Board implements IPondAction {
     }
 
     @Override
-    public void moveDucks(ArrayList<PondCard> pond, ArrayList<PondCard> pondPile) {
+    public void moveDucks(List<PondCard> pond, List<PondCard> pondPile) {
         while(pond.size() < 6) {
             pond.add(pondPile.remove(0));
         }

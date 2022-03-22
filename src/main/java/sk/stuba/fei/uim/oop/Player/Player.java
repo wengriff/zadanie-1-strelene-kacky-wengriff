@@ -1,6 +1,7 @@
 package sk.stuba.fei.uim.oop.Player;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import sk.stuba.fei.uim.oop.ActionCard.ActionCard;
 import sk.stuba.fei.uim.oop.Board.Board;
@@ -10,8 +11,8 @@ import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
 
 public class Player implements ISanitizeInput {
     private final String name;
-    private ArrayList<ActionCard> hand;
-    private ArrayList<DuckCard> ducks;
+    private List<ActionCard> hand;
+    private List<DuckCard> ducks;
     private int cardNumber;
     private int discardCardNumber;
 
@@ -25,19 +26,19 @@ public class Player implements ISanitizeInput {
 
     public String getName() { return this.name; }
 
-    public ArrayList<ActionCard> getHand () { return this.hand; }
+    public List<ActionCard> getHand () { return this.hand; }
 
-    public ArrayList<DuckCard> getDucks() { return this.ducks; }
+    public List<DuckCard> getDucks() { return this.ducks; }
 
     public int getNumberOfDucks() { return this.ducks.size(); }
 
-    public void setHand(ArrayList<ActionCard> hand) { this.hand = hand; }
+    public void setHand(List<ActionCard> hand) { this.hand = hand; }
 
     public void decrementDucks() { this.ducks.remove(0); }
 
     private void addCard(ActionCard card) { this.hand.add(card); }
 
-    public void playCard(Board board, ArrayList<ActionCard> pile) {
+    public void playCard(Board board, List<ActionCard> pile) {
 
         System.out.println("\n---> " + this.getName() + "'s turn!");
         this.printHand();
@@ -50,17 +51,17 @@ public class Player implements ISanitizeInput {
         }
     }
 
-    public void draw(ArrayList<ActionCard> deck) {
+    public void draw(List<ActionCard> deck) {
         while(this.getHand().size() < 3) {
             this.addCard(deck.remove(0));
         }
     }
 
-    private boolean canPlayCard(ArrayList<Boolean> crosshairs,ArrayList<ActionCard> hand) {
+    private boolean canPlayCard(List<Boolean> crosshairs,List<ActionCard> hand) {
         return this.canPlayCardCheck(crosshairs, "Shoot") && this.canPlayCardCheck(crosshairs, "Aim");
     }
 
-    private boolean canPlayCardCheck(ArrayList<Boolean> crosshairs, String name) {
+    private boolean canPlayCardCheck(List<Boolean> crosshairs, String name) {
         boolean ok = true;
         if(!(crosshairs.contains(name == "Shoot" ? true : false))) {
             for(ActionCard card : this.hand) {
@@ -74,12 +75,12 @@ public class Player implements ISanitizeInput {
         return ok;
     }
 
-    private void discardCard(ActionCard card, ArrayList<ActionCard> pile) {
+    private void discardCard(ActionCard card, List<ActionCard> pile) {
         pile.add(card);
         this.hand.remove(card);
     }
 
-    private void discard(ArrayList<ActionCard> pile) {
+    private void discard(List<ActionCard> pile) {
         System.out.println("You don't have any cards to play! You have to discard one card!");
         this.discardCardNumber = ZKlavesnice.readInt("Choose a card (1-3) to discard: ");
         this.sanitizeDiscardInput();
@@ -87,7 +88,7 @@ public class Player implements ISanitizeInput {
         this.discardCard(toDiscard, pile);
     }
 
-    private void play(Board board, ArrayList<ActionCard> pile) {
+    private void play(Board board, List<ActionCard> pile) {
         this.cardNumber = ZKlavesnice.readInt("Choose a card: ");
         this.sanitizeInput(board);
         ActionCard selected = this.hand.get(cardNumber - 1);
