@@ -3,8 +3,6 @@ package sk.stuba.fei.uim.oop.Player;
 import java.util.ArrayList;
 
 import sk.stuba.fei.uim.oop.ActionCard.ActionCard;
-import sk.stuba.fei.uim.oop.ActionCard.AimCard;
-import sk.stuba.fei.uim.oop.ActionCard.ShootCard;
 import sk.stuba.fei.uim.oop.Board.Board;
 import sk.stuba.fei.uim.oop.Board.DuckCard;
 import sk.stuba.fei.uim.oop.Interface.ISanitizeInput;
@@ -115,7 +113,7 @@ public class Player implements ISanitizeInput {
     @Override
     public void sanitizeInput(Board board) {
         if(this.canPlayCard(board.getCrosshairs(), this.hand) && !(board.getCrosshairs().contains(true))) {
-            while(this.cardNumber < 1 || this.cardNumber > this.hand.size() || this.getHand().get(this.cardNumber - 1) instanceof ShootCard) {
+            while(this.cardNumber < 1 || this.cardNumber > this.hand.size() || this.getHand().get(this.cardNumber - 1).getName().equals("Shoot")) {
                 System.out.println("\nCard is not playable!\n");
                 this.cardNumber = ZKlavesnice.readInt("Choose another card: ");
             }
